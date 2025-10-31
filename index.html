@@ -1,0 +1,3005 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Shopping | Luxury Watches</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Sélecteur de langue vertical et fixe */
+        .language-selector {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 10px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .lang-btn {
+            padding: 12px 15px;
+            border: 1px solid #3498db;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .lang-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateX(-5px);
+        }
+        
+        .lang-btn.active {
+            background: #3498db;
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        /* Animation du serpent */
+        .snake-container {
+            width: 100%;
+            height: 120px;
+            position: relative;
+            margin: 30px 0;
+            overflow: hidden;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .happy-snake {
+            position: absolute;
+            top: 30px;
+            left: -100px;
+            font-size: 3rem;
+            animation: snakeMove 8s ease-in-out infinite;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+        }
+        
+        @keyframes snakeMove {
+            0% {
+                left: -100px;
+                transform: scaleX(1);
+            }
+            25% {
+                left: 25%;
+                transform: scaleX(1);
+            }
+            50% {
+                left: 50%;
+                transform: scaleX(1);
+            }
+            75% {
+                left: 75%;
+                transform: scaleX(-1);
+            }
+            100% {
+                left: calc(100% + 100px);
+                transform: scaleX(-1);
+            }
+        }
+        
+        .snake-bag {
+            position: absolute;
+            top: 45px;
+            left: 40px;
+            font-size: 1.5rem;
+            animation: bagBounce 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes bagBounce {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Styles pour la section description stylisée */
+        .stylish-description {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stylish-description::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-20px, -20px) rotate(360deg); }
+        }
+        
+        .description-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .description-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); }
+            to { filter: drop-shadow(0 0 20px rgba(255,255,255,0.8)); }
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .feature-card:hover::before {
+            left: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+        
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .feature-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .feature-subtext {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .accent {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        .premium {
+            background: linear-gradient(120deg, #ff9a9e 0%, #fecfef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        
+        /* Animation pour l'apparition des cartes */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .feature-card {
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Updated Header Section with Background Image */
+        .premium-header {
+            position: relative;
+            height: 70vh;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('background.jpg') center/cover no-repeat;
+        }
+        
+        .header-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+        
+        .header-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            background: linear-gradient(45deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titlePulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .header-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            opacity: 0.95;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .header-tagline {
+            font-size: 1.2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+        
+        /* Product Video Section */
+        .product-video-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-video-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+        }
+        
+        .product-video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .product-video-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .product-video-container:hover .product-video-controls {
+            opacity: 1;
+        }
+        
+        .product-video-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .product-video-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .product-video-progress {
+            flex: 1;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .product-video-progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: #e74c3c;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        
+        .product-video-time {
+            color: white;
+            font-size: 14px;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .product-video-volume {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .product-video-volume-slider {
+            width: 80px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .product-video-volume-level {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: white;
+            width: 100%;
+        }
+        
+        .product-video-fullscreen {
+            margin-left: auto;
+        }
+        
+        /* Quality Description Section */
+        .quality-description {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quality-description::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: grain 8s steps(10) infinite;
+        }
+        
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -10%); }
+            20% { transform: translate(-15%, 5%); }
+            30% { transform: translate(7%, -25%); }
+            40% { transform: translate(-5%, 25%); }
+            50% { transform: translate(-15%, 10%); }
+            60% { transform: translate(15%, 0%); }
+            70% { transform: translate(0%, 15%); }
+            80% { transform: translate(3%, 35%); }
+            90% { transform: translate(-10%, 10%); }
+        }
+        
+        .quality-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .quality-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #f39c12, #e74c3c, #9b59b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbow 3s ease-in-out infinite;
+        }
+        
+        @keyframes rainbow {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+        }
+        
+        .quality-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .quality-feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quality-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .quality-feature:hover::before {
+            left: 100%;
+        }
+        
+        .quality-feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .quality-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: floatIcon 3s ease-in-out infinite;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+        }
+        
+        @keyframes floatIcon {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% { 
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+        
+        .quality-feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .quality-feature-text {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        
+        .quality-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .product-image {
+            height: 200px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .product-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .product-image:hover::after {
+            content: '🔍 Cliquez pour agrandir';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .no-image {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+        
+        .no-image .logo {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #3498db;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .quantity-btn:hover {
+            background: #f8f9fa;
+            border-color: #3498db;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .color-label {
+            display: inline-block;
+            padding: 5px 12px;
+            background-color: #f1f2f6;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        
+        /* Modal pour visionneuse d'images */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+        
+        .close-modal:hover {
+            color: #bbb;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            transform: translateY(-50%);
+        }
+        
+        .nav-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .image-info {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Modal Mot de Passe */
+        .password-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .password-content {
+            background: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .password-input {
+            width: 100%;
+            padding: 15px;
+            margin: 20px 0;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        
+        .password-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .password-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1c6ea4);
+            transform: translateY(-2px);
+        }
+        
+        .user-form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .delivery-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .delivery-option {
+            flex: 1;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .delivery-option:hover {
+            border-color: #3498db;
+        }
+        
+        .delivery-option.selected {
+            border-color: #3498db;
+            background-color: #e7f3ff;
+        }
+        
+        .delivery-option input {
+            display: none;
+        }
+        
+        .delivery-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #2980b9, #1c6ea4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .submit-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Message de succès stylé */
+        .success-message {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            text-align: center;
+            border: 2px solid #28a745;
+            display: none;
+            animation: slideIn 0.5s ease;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: bounce 1s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .success-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .success-details {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .support-info {
+            background: rgba(40, 167, 69, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            margin-top: 15px;
+        }
+        
+        .admin-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #a93226);
+            transform: translateY(-2px);
+        }
+        
+        .orders-list {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .order-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .order-header {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        
+        .order-details {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .order-products {
+            margin-top: 8px;
+            padding-left: 15px;
+        }
+        
+        .order-product {
+            margin-bottom: 5px;
+        }
+        
+        /* New styles for log section */
+        .log-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .log-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .log-btn {
+            background: linear-gradient(135deg, #27ae60, #219653);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .log-btn:hover {
+            background: linear-gradient(135deg, #219653, #1e8749);
+            transform: translateY(-2px);
+        }
+        
+        .log-content {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            background: #f8f9fa;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            font-size: 0.9rem;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .connection-status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .connection-online {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .connection-offline {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            color: #7f8c8d;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .premium-header {
+                height: 50vh;
+            }
+            
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .header-tagline {
+                font-size: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .user-form-section, .admin-section, .quality-description {
+                padding: 20px;
+            }
+            
+            .delivery-options {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                width: 95%;
+                height: 80vh;
+            }
+            
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 18px;
+            }
+            
+            .language-selector {
+                top: 20px;
+                right: 20px;
+                transform: none;
+                flex-direction: row;
+                padding: 10px 15px;
+            }
+            
+            .lang-btn {
+                padding: 8px 12px;
+                min-width: 60px;
+                font-size: 0.9rem;
+            }
+            
+            .lang-btn:hover {
+                transform: translateY(-3px);
+            }
+            
+            .happy-snake {
+                font-size: 2.5rem;
+            }
+            
+            .snake-container {
+                height: 100px;
+            }
+            
+            .stylish-description {
+                padding: 40px 20px;
+                margin: 20px 0;
+            }
+            
+            .description-title {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .feature-card {
+                padding: 25px 20px;
+            }
+            
+            .feature-icon {
+                font-size: 2.5rem;
+            }
+            
+            .feature-text {
+                font-size: 1.1rem;
+            }
+            
+            .log-actions {
+                flex-direction: column;
+            }
+            
+            .product-video-controls {
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .product-video-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            
+            .product-video-time {
+                min-width: 80px;
+                font-size: 12px;
+            }
+            
+            .product-video-volume-slider {
+                width: 60px;
+            }
+            
+            .quality-title {
+                font-size: 2.2rem;
+            }
+            
+            .quality-features {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .quality-feature {
+                padding: 25px 20px;
+            }
+            
+            .quality-icon {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .description-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card {
+                padding: 20px 15px;
+            }
+            
+            .language-selector {
+                top: 10px;
+                right: 10px;
+                padding: 8px 12px;
+            }
+            
+            .lang-btn {
+                padding: 6px 10px;
+                min-width: 50px;
+                font-size: 0.8rem;
+            }
+            
+            .product-video-controls {
+                padding: 10px;
+                gap: 8px;
+            }
+            
+            .product-video-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+            
+            .product-video-time {
+                min-width: 70px;
+                font-size: 11px;
+            }
+            
+            .product-video-volume {
+                display: none;
+            }
+            
+            .quality-title {
+                font-size: 1.8rem;
+            }
+            
+            .quality-feature {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sélecteur de langue vertical et fixe -->
+    <div class="language-selector">
+        <button class="lang-btn active" data-lang="fr">Français</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="ar">العربية</button>
+    </div>
+
+    <!-- Updated Header Section with Background Image -->
+    <section class="premium-header">
+        <div class="header-overlay">
+            <h1 class="header-title">PREMIUM SHOPPING</h1>
+            <p class="header-subtitle">L'Excellence Réinventée</p>
+            <p class="header-tagline">
+                Découvrez une collection exclusive de Marchandise de luxe où l'artisanat d'exception 
+                rencontre l'innovation technologique pour créer des pièces uniques.
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Connection Status -->
+        <div id="connectionStatus" class="connection-status" style="display: none;">
+            <!-- Will show connection status -->
+        </div>
+
+        <!-- Quality Description Section -->
+        <section class="quality-description">
+            <div class="quality-content">
+                <h2 class="quality-title">🌟 Excellence Inégalée</h2>
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 30px; max-width: 800px; margin-left: auto; margin-right: auto;">
+                    Chaque pièce incarne la perfection, alliant savoir-faire ancestral et technologies de pointe 
+                    pour une expérience horlogère exceptionnelle.
+                </p>
+                
+                <div class="quality-features">
+                    <div class="quality-feature">
+                        <span class="quality-icon">💎</span>
+                        <h3 class="quality-feature-title">Matériaux Précieux</h3>
+                        <p class="quality-feature-text">
+                            Or 18 carats, acier inoxydable chirurgical et cristaux saphir antireflet 
+                            pour une durabilité et une brillance exceptionnelles.
+                        </p>
+                        <div class="quality-badge">Certifié Or 18K</div>
+                    </div>
+                    
+                    <div class="quality-feature">
+                        <span class="quality-icon">⚙️</span>
+                        <h3 class="quality-feature-title">Mécanisme Suisse</h3>
+                        <p class="quality-feature-text">
+                            Mouvements automatiques de précision, testés et ajustés pour une exactitude 
+                            chronométrique de -2/+4 secondes par jour.
+                        </p>
+                        <div class="quality-badge">Précision Suisse</div>
+                    </div>
+                    
+                    <div class="quality-feature">
+                        <span class="quality-icon">🔬</span>
+                        <h3 class="quality-feature-title">Finition Artisanale</h3>
+                        <p class="quality-feature-text">
+                            Polissage main, gravures détaillées et assemblages réalisés par des maîtres 
+                            horlogers avec plus de 20 ans d'expérience.
+                        </p>
+                        <div class="quality-badge">Fait Main</div>
+                    </div>
+                    
+                    <div class="quality-feature">
+                        <span class="quality-icon">🌊</span>
+                        <h3 class="quality-feature-title">Étanchéité Maximale</h3>
+                        <p class="quality-feature-text">
+                            Résistance à l'eau jusqu'à 300 mètres, joints doubles et valve à hélium 
+                            pour les plongeurs les plus exigeants.
+                        </p>
+                        <div class="quality-badge">300m WR</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Description Stylisée -->
+        <section class="stylish-description">
+            <div class="description-content">
+                <h2 class="description-title">Excellence Redefined</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">✨</span>
+                        <div class="feature-text">
+                            <span class="highlight">Designed to delight</span>
+                        </div>
+                        <div class="feature-subtext">
+                            Every detail crafted for an unforgettable experience
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <div class="feature-text">
+                            <span class="accent">Built to last</span>
+                        </div>
+                        <div class="feature-subtext">
+                            Quality that stands the test of time
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🚀</span>
+                        <div class="feature-text">
+                            The upgrade you've been waiting for
+                        </div>
+                        <div class="feature-subtext">
+                            Next-level performance meets elegant design
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🎯</span>
+                        <div class="feature-text">
+                            <span class="premium">Simple design</span>. Exceptional results
+                        </div>
+                        <div class="feature-subtext">
+                            Minimalist aesthetics, maximum impact
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">💎</span>
+                        <div class="feature-text">
+                            More than a product, it's a solution
+                        </div>
+                        <div class="feature-subtext">
+                            Designed to solve, built to inspire
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <span class="feature-icon">🌟</span>
+                        <div class="feature-text">
+                            Works brilliantly. <span class="highlight">Looks even better</span>
+                        </div>
+                        <div class="feature-subtext">
+                            Where functionality meets artistry
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Video Section -->
+        <section class="product-video-section">
+            <h2 class="section-title">🎬 Découvrez Nos Produits en Vidéo</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Regardez notre vidéo de présentation pour découvrir la qualité exceptionnelle de nos produits
+            </p>
+            
+            <div class="product-video-container">
+                <video class="product-video" id="productVideo">
+                    <source src="e.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la lecture de vidéos.
+                </video>
+                
+                <div class="product-video-controls">
+                    <button class="product-video-btn" id="playPauseBtn">▶</button>
+                    
+                    <div class="product-video-progress" id="progressBar">
+                        <div class="product-video-progress-bar" id="progress"></div>
+                    </div>
+                    
+                    <div class="product-video-time" id="timeDisplay">0:00 / 0:00</div>
+                    
+                    <div class="product-video-volume">
+                        <button class="product-video-btn" id="volumeBtn">🔊</button>
+                        <div class="product-video-volume-slider" id="volumeSlider">
+                            <div class="product-video-volume-level" id="volumeLevel"></div>
+                        </div>
+                    </div>
+                    
+                    <button class="product-video-btn product-video-fullscreen" id="fullscreenBtn">⛶</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Animation du serpent heureux -->
+        <div class="snake-container">
+            <div class="happy-snake">
+                🐍
+                <div class="snake-bag">🛍️</div>
+            </div>
+        </div>
+
+        <!-- Section Produits -->
+        <h2 class="section-title" data-translate="productsTitle">🛍️ Nos Marchandise de Luxe</h2>
+        <div class="products-grid" id="productsContainer">
+            <!-- Les cartes produits seront générées par JavaScript -->
+        </div>
+        
+        <div class="user-form-section">
+            <h2 class="section-title" data-translate="customerInfo">📋 Informations Client</h2>
+            <form id="customerForm">
+                <div class="form-group">
+                    <label for="firstName" data-translate="firstName">Prénom</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName" data-translate="lastName">Nom</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" data-translate="phone">Numéro de Téléphone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="wilaya" data-translate="wilaya">Wilaya</label>
+                    <select id="wilaya" name="wilaya" required>
+                        <option value="" data-translate="selectWilaya">Sélectionnez votre wilaya</option>
+                        <!-- Les options de wilaya seront peuplées par JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label data-translate="deliveryMethod">🚚 Mode de Livraison</label>
+                    <div class="delivery-options">
+                        <label class="delivery-option" for="delivery_home">
+                            <input type="radio" id="delivery_home" name="delivery" value="domicile" required>
+                            <div class="delivery-icon">🏠</div>
+                            <div><strong data-translate="homeDelivery">Livraison à Domicile</strong></div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="homeDeliveryDesc">Livraison directe chez vous</div>
+                        </label>
+                        
+                        <label class="delivery-option" for="delivery_bureau">
+                            <input type="radio" id="delivery_bureau" name="delivery" value="bureau" required>
+                            <div class="delivery-icon">🏢</div>
+                            <div><strong data-translate="relayPoint">Point Relais/Bureau</strong></div>
+                            <div style="font-size: 0.9rem; color: #666;" data-translate="relayPointDesc">Retrait en point relais</div>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" data-translate="finalizeOrder">✅ Finaliser la Commande</button>
+                
+                <!-- Message de succès amélioré -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">🎉</div>
+                    <div class="success-title" data-translate="orderConfirmed">Commande Confirmée avec Succès !</div>
+                    <div class="success-details" data-translate="orderSuccessDetails">
+                        Votre commande a été enregistrée avec succès.<br>
+                        Notre équipe de support vous contactera dans les plus brefs délais.
+                    </div>
+                    <div class="support-info">
+                        <strong data-translate="customerSupport">📞 Support Client :</strong><br>
+                        <span data-translate="supportDetails">Un conseiller vous appellera dans les 24 heures pour confirmer votre commande.</span><br>
+                        <em data-translate="keepPhone">Merci de garder votre téléphone à portée de main.</em>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- New Log Section -->
+        <div class="log-section">
+            <h2 class="section-title">📊 Gestion des Logs de Commandes</h2>
+            <p>Téléchargez l'historique complet des commandes sous forme de fichier log</p>
+            <div class="log-actions">
+                <button class="log-btn" onclick="openPasswordModal('downloadLog')">
+                    📥 Télécharger le Log des Commandes (log.txt)
+                </button>
+                <button class="log-btn" onclick="openPasswordModal('viewLog')">
+                    👁️ Voir le Log des Commandes
+                </button>
+                <button class="log-btn" onclick="openPasswordModal('clearLog')" style="background:linear-gradient(135deg, #e74c3c, #c0392b);">
+                    🗑️ Effacer Toutes les Commandes
+                </button>
+            </div>
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <p>Chargement des commandes...</p>
+            </div>
+            <div class="log-content" id="logContent" style="display: none;">
+                <!-- Log content will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Section Admin pour Voir les Commandes -->
+        <div class="admin-section">
+            <h2 class="section-title" data-translate="orderManagement">⚙️ Gestion des Commandes</h2>
+            <div>
+                <button class="admin-btn" onclick="openPasswordModal('view')" data-translate="viewOrders">👁️ Voir Toutes les Commandes</button>
+                <button class="admin-btn" onclick="openPasswordModal('export')" data-translate="exportOrders">📥 Exporter les Commandes</button>
+                <button class="admin-btn" onclick="openPasswordModal('clear')" data-translate="clearOrders">🗑️ Effacer Toutes les Commandes</button>
+            </div>
+            <div class="orders-list" id="ordersList">
+                <!-- Les commandes seront affichées ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour visionneuse d'images -->
+    <div id="imageModal" class="image-modal">
+        <span class="close-modal">&times;</span>
+        <div class="modal-nav">
+            <button class="nav-btn prev-btn">&#10094;</button>
+            <button class="nav-btn next-btn">&#10095;</button>
+        </div>
+        <div class="modal-content">
+            <img class="modal-image" id="modalImage" src="" alt="Image produit">
+            <div class="image-info" id="imageInfo"></div>
+        </div>
+    </div>
+
+    <!-- Modal Mot de Passe -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-content">
+            <h3 style="margin-bottom: 20px; color: #2c3e50;" data-translate="adminAccess">🔐 Accès Administrateur</h3>
+            <p style="color: #666; margin-bottom: 20px;" data-translate="enterPassword">Veuillez entrer le mot de passe pour continuer</p>
+            <input type="password" class="password-input" id="passwordInput" placeholder="*****" maxlength="5">
+            <button class="password-btn" onclick="checkPassword()" data-translate="validate">Valider</button>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: #999;" data-translate="authorizedAccess">
+                Accès réservé au personnel autorisé
+            </p>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p data-translate="copyright">&copy; 2023 Premium Shopping. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration for JSONBin.io - COMPLETE CONFIGURATION!
+        const JSONBIN_CONFIG = {
+            BIN_ID: '69047bc6d0ea881f40c91181', // Your Bin ID
+            API_KEY: '$2a$10$HeuRw0voEvqzaHcdJgiiEOmLyEvvU6hVu3mc.3sQFF6g7D4B9kacm', // Your Master Key
+            BASE_URL: 'https://api.jsonbin.io/v3/b'
+        };
+
+        // Test connection on startup
+        async function testConnection() {
+            const statusElement = document.getElementById('connectionStatus');
+            try {
+                const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                    }
+                });
+                
+                if (response.ok) {
+                    statusElement.textContent = '✅ Connecté à la base de données globale';
+                    statusElement.className = 'connection-status connection-online';
+                    statusElement.style.display = 'block';
+                } else {
+                    throw new Error('Connection failed');
+                }
+            } catch (error) {
+                statusElement.textContent = '⚠️ Mode hors ligne - Utilisation du stockage local';
+                statusElement.className = 'connection-status connection-offline';
+                statusElement.style.display = 'block';
+            }
+        }
+
+        // Global Order Storage Functions using JSONBin.io
+        async function saveOrderToServer(orderData) {
+            try {
+                console.log('🌍 Saving order to global database...');
+                
+                // Get existing orders from server
+                const existingOrders = await getOrdersFromServer();
+                
+                // Add new order with metadata
+                const newOrder = {
+                    ...orderData,
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    clientInfo: {
+                        userAgent: navigator.userAgent,
+                        language: navigator.language,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        ip: await getClientIP()
+                    }
+                };
+                
+                console.log('📦 New order:', newOrder);
+                
+                // Add to existing orders
+                existingOrders.push(newOrder);
+                
+                // Save back to server
+                const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BIN_ID}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Master-Key': JSONBIN_CONFIG.API_KEY,
+                        'X-Bin-Versioning': 'false'
+                    },
+                    body: JSON.stringify(existingOrders)
+                });
+                
+                console.log('📡 Server response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to save order to server: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('✅ Order saved successfully to global database!');
+                return true;
+                
+            } catch (error) {
+                console.error('❌ Error saving order to server:', error);
+                // Fallback to localStorage
+                console.log('🔄 Falling back to local storage...');
+                return saveOrderToLocal(orderData);
+            }
+        }
+
+        async function getOrdersFromServer() {
+            try {
+                console.log('🌍 Fetching orders from global database...');
+                
+                const response = await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BIN_ID}/latest`, {
+                    headers: {
+                        'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                    }
+                });
+                
+                console.log('📡 Fetch response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch orders: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log('📊 Global orders fetched:', data.record ? data.record.length : 0, 'orders');
+                
+                // Handle various response formats
+                if (data.record && Array.isArray(data.record)) {
+                    return data.record;
+                } else if (Array.isArray(data)) {
+                    return data;
+                } else {
+                    console.warn('⚠️ Invalid data format from server, returning empty array');
+                    return [];
+                }
+                
+            } catch (error) {
+                console.error('❌ Error fetching orders from server:', error);
+                // Fallback to localStorage
+                return getOrdersFromLocal();
+            }
+        }
+
+        async function getClientIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return 'Unknown';
+            }
+        }
+
+        // Local storage fallback functions
+        function saveOrderToLocal(orderData) {
+            try {
+                const existingOrders = JSON.parse(localStorage.getItem('premiumShoppingOrders') || '[]');
+                const newOrder = {
+                    ...orderData,
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    clientInfo: {
+                        userAgent: navigator.userAgent,
+                        language: navigator.language,
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        ip: 'Local Storage'
+                    }
+                };
+                
+                existingOrders.push(newOrder);
+                localStorage.setItem('premiumShoppingOrders', JSON.stringify(existingOrders));
+                console.log('💾 Order saved to local storage');
+                return true;
+            } catch (error) {
+                console.error('❌ Error saving order locally:', error);
+                return false;
+            }
+        }
+
+        function getOrdersFromLocal() {
+            try {
+                const orders = JSON.parse(localStorage.getItem('premiumShoppingOrders') || '[]');
+                console.log('💾 Orders from local storage:', orders.length, 'orders');
+                return orders;
+            } catch (error) {
+                console.error('❌ Error getting local orders:', error);
+                return [];
+            }
+        }
+
+        // Modified saveOrder function (uses both server and local)
+        async function saveOrder(orderData) {
+            console.log('🚀 Starting order save process...');
+            
+            // Save to server (primary)
+            const serverSuccess = await saveOrderToServer(orderData);
+            
+            if (!serverSuccess) {
+                console.log('❌ Server save failed, using local storage only');
+            } else {
+                console.log('✅ Order saved successfully to global database');
+            }
+            
+            return true;
+        }
+
+        // Modified getOrders function (combines server and local)
+        async function getOrders() {
+            try {
+                const serverOrders = await getOrdersFromServer();
+                const localOrders = getOrdersFromLocal();
+                
+                // Combine and remove duplicates
+                const allOrders = [...serverOrders, ...localOrders];
+                const uniqueOrders = allOrders.filter((order, index, self) => 
+                    index === self.findIndex(o => o.id === order.id)
+                );
+                
+                console.log('📋 Total orders (combined):', uniqueOrders.length, 'orders');
+                return uniqueOrders;
+            } catch (error) {
+                console.error('❌ Error getting orders:', error);
+                return getOrdersFromLocal();
+            }
+        }
+
+        // Product Video Controls
+        function initProductVideoControls() {
+            const video = document.getElementById('productVideo');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const progressBar = document.getElementById('progress');
+            const timeDisplay = document.getElementById('timeDisplay');
+            const volumeBtn = document.getElementById('volumeBtn');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const volumeLevel = document.getElementById('volumeLevel');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const progressContainer = document.getElementById('progressBar');
+
+            // Auto play video when page loads
+            video.autoplay = true;
+            video.muted = false; // Start with sound on
+            video.volume = 0.7; // Set initial volume to 70%
+
+            // Update volume level display
+            volumeLevel.style.width = (video.volume * 100) + '%';
+
+            // Play/Pause functionality
+            playPauseBtn.addEventListener('click', function() {
+                if (video.paused) {
+                    video.play();
+                    playPauseBtn.textContent = '⏸';
+                } else {
+                    video.pause();
+                    playPauseBtn.textContent = '▶';
+                }
+            });
+
+            // Update progress bar
+            video.addEventListener('timeupdate', function() {
+                const progress = (video.currentTime / video.duration) * 100;
+                progressBar.style.width = progress + '%';
+                
+                // Update time display
+                const currentTime = formatTime(video.currentTime);
+                const duration = formatTime(video.duration);
+                timeDisplay.textContent = `${currentTime} / ${duration}`;
+            });
+
+            // Seek functionality
+            progressContainer.addEventListener('click', function(e) {
+                const rect = progressContainer.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                video.currentTime = pos * video.duration;
+            });
+
+            // Volume control
+            volumeBtn.addEventListener('click', function() {
+                if (video.volume > 0) {
+                    video.volume = 0;
+                    volumeBtn.textContent = '🔇';
+                    volumeLevel.style.width = '0%';
+                } else {
+                    video.volume = 0.7;
+                    volumeBtn.textContent = '🔊';
+                    volumeLevel.style.width = '70%';
+                }
+            });
+
+            // Volume slider
+            volumeSlider.addEventListener('click', function(e) {
+                const rect = volumeSlider.getBoundingClientRect();
+                const pos = (e.clientX - rect.left) / rect.width;
+                video.volume = Math.max(0, Math.min(1, pos));
+                volumeLevel.style.width = (video.volume * 100) + '%';
+                volumeBtn.textContent = video.volume === 0 ? '🔇' : '🔊';
+            });
+
+            // Fullscreen functionality
+            fullscreenBtn.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    video.parentElement.requestFullscreen().catch(err => {
+                        console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            });
+
+            // Handle video end
+            video.addEventListener('ended', function() {
+                playPauseBtn.textContent = '▶';
+                video.currentTime = 0;
+            });
+
+            // Format time helper function
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // Show controls when video is hovered
+            const videoContainer = video.parentElement;
+            let controlsTimeout;
+            
+            videoContainer.addEventListener('mouseenter', function() {
+                clearTimeout(controlsTimeout);
+                videoContainer.querySelector('.product-video-controls').style.opacity = '1';
+            });
+
+            videoContainer.addEventListener('mouseleave', function() {
+                controlsTimeout = setTimeout(function() {
+                    videoContainer.querySelector('.product-video-controls').style.opacity = '0';
+                }, 2000);
+            });
+
+            // Keep controls visible when interacting with them
+            const controls = videoContainer.querySelector('.product-video-controls');
+            controls.addEventListener('mouseenter', function() {
+                clearTimeout(controlsTimeout);
+            });
+
+            // Keyboard controls
+            document.addEventListener('keydown', function(e) {
+                if (document.activeElement.tagName === 'INPUT') return;
+                
+                switch(e.key) {
+                    case ' ':
+                    case 'k':
+                        e.preventDefault();
+                        if (video.paused) {
+                            video.play();
+                            playPauseBtn.textContent = '⏸';
+                        } else {
+                            video.pause();
+                            playPauseBtn.textContent = '▶';
+                        }
+                        break;
+                    case 'f':
+                        if (!document.fullscreenElement) {
+                            video.parentElement.requestFullscreen();
+                        } else {
+                            document.exitFullscreen();
+                        }
+                        break;
+                    case 'm':
+                        if (video.volume > 0) {
+                            video.volume = 0;
+                            volumeBtn.textContent = '🔇';
+                            volumeLevel.style.width = '0%';
+                        } else {
+                            video.volume = 0.7;
+                            volumeBtn.textContent = '🔊';
+                            volumeLevel.style.width = '70%';
+                        }
+                        break;
+                    case 'ArrowLeft':
+                        video.currentTime = Math.max(0, video.currentTime - 5);
+                        break;
+                    case 'ArrowRight':
+                        video.currentTime = Math.min(video.duration, video.currentTime + 5);
+                        break;
+                }
+            });
+        }
+
+        // Données de traduction
+        const translations = {
+            fr: {
+                siteTitle: "Premium Shopping",
+                siteSubtitle: "Découvrez l'excellence du luxe",
+                productsTitle: "🛍️ Nos Marchandise de Luxe",
+                customerInfo: "📋 Informations Client",
+                firstName: "Prénom",
+                lastName: "Nom",
+                phone: "Numéro de Téléphone",
+                wilaya: "Wilaya",
+                selectWilaya: "Sélectionnez votre wilaya",
+                deliveryMethod: "🚚 Mode de Livraison",
+                homeDelivery: "Livraison à Domicile",
+                homeDeliveryDesc: "Livraison directe chez vous",
+                relayPoint: "Point Relais/Bureau",
+                relayPointDesc: "Retrait en point relais",
+                finalizeOrder: "✅ Finaliser la Commande",
+                orderConfirmed: "Commande Confirmée avec Succès !",
+                orderSuccessDetails: "Votre commande a été enregistrée avec succès.<br>Notre équipe de support vous contactera dans les plus brefs délais.",
+                customerSupport: "📞 Support Client :",
+                supportDetails: "Un conseiller vous appellera dans les 24 heures pour confirmer votre commande.",
+                keepPhone: "Merci de garder votre téléphone à portée de main.",
+                orderManagement: "⚙️ Gestion des Commandes",
+                viewOrders: "👁️ Voir Toutes les Commandes",
+                exportOrders: "📥 Exporter les Commandes",
+                clearOrders: "🗑️ Effacer Toutes les Commandes",
+                adminAccess: "🔐 Accès Administrateur",
+                enterPassword: "Veuillez entrer le mot de passe pour continuer",
+                validate: "Valider",
+                authorizedAccess: "Accès réservé au personnel autorisé",
+                copyright: "&copy; 2023 Premium Shopping. Tous droits réservés.",
+                quantity: "Quantité:",
+                imageNotAvailable: "Image non disponible pour ce produit",
+                accessDenied: "❌ Accès refusé. Veuillez réessayer.",
+                selectDelivery: "Veuillez sélectionner un mode de livraison.",
+                selectProduct: "Veuillez sélectionner au moins un produit.",
+                saveError: "Une erreur est survenue lors de la sauvegarde. Veuillez réessayer.",
+                noOrders: "Aucune commande trouvée.",
+                ordersExported: "✅ Commandes exportées avec succès !",
+                clearConfirm: "Êtes-vous sûr de vouloir effacer toutes les commandes ? Cette action est irréversible.",
+                ordersCleared: "🗑️ Toutes les commandes ont été effacées.",
+                allOrdersCleared: "Toutes les commandes ont été effacées."
+            },
+            en: {
+                siteTitle: "Premium Shopping",
+                siteSubtitle: "Discover the Excellence of Luxury",
+                productsTitle: "🛍️ Our Luxury Watches",
+                customerInfo: "📋 Customer Information",
+                firstName: "First Name",
+                lastName: "Last Name",
+                phone: "Phone Number",
+                wilaya: "Wilaya",
+                selectWilaya: "Select your wilaya",
+                deliveryMethod: "🚚 Delivery Method",
+                homeDelivery: "Home Delivery",
+                homeDeliveryDesc: "Direct delivery to your home",
+                relayPoint: "Relay Point/Office",
+                relayPointDesc: "Pickup at a relay point",
+                finalizeOrder: "✅ Finalize Order",
+                orderConfirmed: "Order Successfully Confirmed!",
+                orderSuccessDetails: "Your order has been successfully recorded.<br>Our support team will contact you shortly.",
+                customerSupport: "📞 Customer Support:",
+                supportDetails: "An advisor will call you within 24 hours to confirm your order.",
+                keepPhone: "Please keep your phone handy.",
+                orderManagement: "⚙️ Order Management",
+                viewOrders: "👁️ View All Orders",
+                exportOrders: "📥 Export Orders",
+                clearOrders: "🗑️ Clear All Orders",
+                adminAccess: "🔐 Administrator Access",
+                enterPassword: "Please enter the password to continue",
+                validate: "Validate",
+                authorizedAccess: "Access restricted to authorized personnel",
+                copyright: "&copy; 2023 Premium Shopping. All rights reserved.",
+                quantity: "Quantity:",
+                imageNotAvailable: "Image not available for this product",
+                accessDenied: "❌ Access denied. Please try again.",
+                selectDelivery: "Please select a delivery method.",
+                selectProduct: "Please select at least one product.",
+                saveError: "An error occurred while saving. Please try again.",
+                noOrders: "No orders found.",
+                ordersExported: "✅ Orders exported successfully!",
+                clearConfirm: "Are you sure you want to delete all orders? This action is irreversible.",
+                ordersCleared: "🗑️ All orders have been cleared.",
+                allOrdersCleared: "All orders have been cleared."
+            },
+            ar: {
+                siteTitle: "بريميوم شوبينغ",
+                siteSubtitle: "اكتشف روعة المنتجات الفاخرة",
+                productsTitle: "🛍️ ساعاتنا الفاخرة",
+                customerInfo: "📋 معلومات العميل",
+                firstName: "الاسم الأول",
+                lastName: "اسم العائلة",
+                phone: "رقم الهاتف",
+                wilaya: "الولاية",
+                selectWilaya: "اختر ولايتك",
+                deliveryMethod: "🚚 طريقة التوصيل",
+                homeDelivery: "التوصيل إلى المنزل",
+                homeDeliveryDesc: "توصيل مباشر إلى منزلك",
+                relayPoint: "نقطة الاستلام/المكتب",
+                relayPointDesc: "الاستلام من نقطة الاستلام",
+                finalizeOrder: "✅ إتمام الطلب",
+                orderConfirmed: "تم تأكيد الطلب بنجاح!",
+                orderSuccessDetails: "تم تسجيل طلبك بنجاح.<br>سيقوم فريق الدعم بالاتصال بك قريبًا.",
+                customerSupport: "📞 دعم العملاء:",
+                supportDetails: "سيتصل بك مستشار في غضون 24 ساعة لتأكيد طلبك.",
+                keepPhone: "يرجى الاحتفاظ بهاتفك في متناول اليد.",
+                orderManagement: "⚙️ إدارة الطلبات",
+                viewOrders: "👁️ عرض جميع الطلبات",
+                exportOrders: "📥 تصدير الطلبات",
+                clearOrders: "🗑️ مسح جميع الطلبات",
+                adminAccess: "🔐 دخول المسؤول",
+                enterPassword: "يرجى إدخال كلمة المرور للمتابعة",
+                validate: "تحقق",
+                authorizedAccess: "الدخول مقصور على الموظفين المصرح لهم",
+                copyright: "&copy; 2023 بريميوم شوبينغ. جميع الحقوق محفوظة.",
+                quantity: "الكمية:",
+                imageNotAvailable: "الصورة غير متاحة لهذا المنتج",
+                accessDenied: "❌ تم رفض الوصول. يرجى المحاولة مرة أخرى.",
+                selectDelivery: "يرجى اختيار طريقة التوصيل.",
+                selectProduct: "يرجى اختيار منتج واحد على الأقل.",
+                saveError: "حدث خطأ أثناء الحفظ. يرجى المحاولة مرة أخرى.",
+                noOrders: "لم يتم العثور على طلبات.",
+                ordersExported: "✅ تم تصدير الطلبات بنجاح!",
+                clearConfirm: "هل أنت متأكد أنك تريد حذف جميع الطلبات؟ هذا الإجراء لا يمكن التراجع عنه.",
+                ordersCleared: "🗑️ تم مسح جميع الطلبات.",
+                allOrdersCleared: "تم مسح جميع الطلبات."
+            }
+        };
+
+        // Données des avis produits
+        const productReviews = [
+            {
+                customer: "Jean Dupont",
+                rating: 5,
+                text: "Produit exceptionnel ! La qualité est au rendez-vous. La montre est encore plus belle en vrai qu'en photo.",
+                product: "Montre de Luxe Édition Or",
+                date: "15 Nov 2023"
+            },
+            {
+                customer: "Marie Lambert",
+                rating: 4,
+                text: "Très belle montre, livraison rapide. Le bracelet est confortable et le design est élégant. Je recommande !",
+                product: "Montre Élégance Argentée",
+                date: "12 Nov 2023"
+            },
+            {
+                customer: "Ahmed Benali",
+                rating: 5,
+                text: "Service client excellent et produit de grande qualité. La finition est impeccable et le mécanisme est précis.",
+                product: "Chronographe Prestige",
+                date: "10 Nov 2023"
+            },
+            {
+                customer: "Sophie Martin",
+                rating: 5,
+                text: "Acheté en cadeau pour mon mari, il en est ravi ! L'emballage était soigné et la livraison très rapide.",
+                product: "Montre de Luxe Édition Or",
+                date: "08 Nov 2023"
+            }
+        ];
+
+        // Données des produits avec images locales
+        const products = [
+            { 
+                id: 1, 
+                name: "Montre de Luxe Édition Or", 
+                price: 299.99, 
+                color: "Or",
+                imageFile: "1.jpg"
+            },
+            { 
+                id: 2, 
+                name: "Montre Élégance Argentée", 
+                price: 349.99, 
+                color: "Argent",
+                imageFile: "2.jpg"
+            },
+            { 
+                id: 3, 
+                name: "Chronographe Prestige", 
+                price: 399.99, 
+                color: "Or Rose",
+                imageFile: "3.jpg"
+            },
+            { 
+                id: 4, 
+                name: "Montre Sport Édition Limitée", 
+                price: 459.99, 
+                color: "Noir",
+                imageFile: "4.jpg"
+            }
+        ];
+
+        // Wilayas d'Algérie complètes
+        const wilayas = [
+            "01 - Adrar", "02 - Chlef", "03 - Laghouat", "04 - Oum El Bouaghi", "05 - Batna", 
+            "06 - Béjaïa", "07 - Biskra", "08 - Béchar", "09 - Blida", "10 - Bouira", 
+            "11 - Tamanrasset", "12 - Tébessa", "13 - Tlemcen", "14 - Tiaret", "15 - Tizi Ouzou", 
+            "16 - Alger", "17 - Djelfa", "18 - Jijel", "19 - Sétif", "20 - Saïda", 
+            "21 - Skikda", "22 - Sidi Bel Abbès", "23 - Annaba", "24 - Guelma", "25 - Constantine", 
+            "26 - Médéa", "27 - Mostaganem", "28 - M'Sila", "29 - Mascara", "30 - Ouargla", 
+            "31 - Oran", "32 - El Bayadh", "33 - Illizi", "34 - Bordj Bou Arreridj", "35 - Boumerdès", 
+            "36 - El Tarf", "37 - Tindouf", "38 - Tissemsilt", "39 - El Oued", "40 - Khenchela", 
+            "41 - Souk Ahras", "42 - Tipaza", "43 - Mila", "44 - Aïn Defla", "45 - Naâma", 
+            "46 - Aïn Témouchent", "47 - Ghardaïa", "48 - Relizane", "49 - El M'Ghair", "50 - El Meniaa", 
+            "51 - Ouled Djellal", "52 - Bordj Badji Mokhtar", "53 - Béni Abbès", "54 - Timimoun", 
+            "55 - Touggourt", "56 - Djanet", "57 - In Salah", "58 - In Guezzam"
+        ];
+
+        // Variables globales
+        let currentImageIndex = 0;
+        let currentAction = '';
+        let currentLanguage = 'fr';
+
+        // Fonction pour changer la langue
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Mettre à jour les boutons de langue
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Mettre à jour tous les éléments avec data-translate
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'OPTION') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+            
+            // Mettre à jour les labels de quantité
+            document.querySelectorAll('.quantity-selector label').forEach(label => {
+                label.textContent = translations[lang]['quantity'];
+            });
+            
+            // Mettre à jour la direction du texte pour l'arabe
+            if (lang === 'ar') {
+                document.body.style.direction = 'rtl';
+                document.body.style.textAlign = 'right';
+            } else {
+                document.body.style.direction = 'ltr';
+                document.body.style.textAlign = 'left';
+            }
+        }
+
+        // Gestion du mot de passe
+        function openPasswordModal(action) {
+            currentAction = action;
+            document.getElementById('passwordModal').style.display = 'block';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordInput').focus();
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            
+            if (password === '*200#') {
+                closePasswordModal();
+                executeAdminAction();
+            } else {
+                alert(translations[currentLanguage]['accessDenied']);
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
+            }
+        }
+
+        function executeAdminAction() {
+            switch(currentAction) {
+                case 'view':
+                    viewOrders();
+                    break;
+                case 'export':
+                    exportOrders();
+                    break;
+                case 'clear':
+                    clearOrders();
+                    break;
+                case 'downloadLog':
+                    downloadOrderLog();
+                    break;
+                case 'viewLog':
+                    viewOrderLog();
+                    break;
+                case 'clearLog':
+                    clearAllOrders();
+                    break;
+            }
+        }
+
+        // Navigation clavier pour le mot de passe
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('passwordModal').style.display === 'block') {
+                if (e.key === 'Escape') {
+                    closePasswordModal();
+                }
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            }
+        });
+
+        // Générer les étoiles de notation
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '★';
+                } else {
+                    stars += '☆';
+                }
+            }
+            return stars;
+        }
+
+        // Fonction pour gérer le chargement des images
+        function handleImageError(img) {
+            img.style.display = 'none';
+            const parent = img.parentElement;
+            parent.innerHTML = '<div class="no-image" onclick="showNoImageMessage()"><div class="logo">🛒</div><div>Image Non Disponible</div></div>';
+        }
+
+        // Fonction pour afficher le message d'image non disponible
+        function showNoImageMessage() {
+            alert(translations[currentLanguage]['imageNotAvailable']);
+        }
+
+        // Fonction pour ouvrir la visionneuse d'images
+        function openImageModal(index) {
+            const product = products[index];
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const imageInfo = document.getElementById('imageInfo');
+            
+            currentImageIndex = index;
+            
+            // Vérifier si l'image existe
+            const img = new Image();
+            img.onload = function() {
+                modalImg.src = product.imageFile;
+                imageInfo.innerHTML = `${product.name} - DA${product.price} - ${product.color}`;
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            };
+            img.onerror = function() {
+                alert(translations[currentLanguage]['imageNotAvailable']);
+                return;
+            };
+            img.src = product.imageFile;
+        }
+
+        // Fonction pour fermer la visionneuse
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Navigation entre les images
+        function navigateImages(direction) {
+            currentImageIndex += direction;
+            
+            // Boucler les images
+            if (currentImageIndex >= products.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = products.length - 1;
+            }
+            
+            openImageModal(currentImageIndex);
+        }
+
+        // Générer les cartes produits
+        function generateProductCards() {
+            const container = document.getElementById('productsContainer');
+            
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                card.innerHTML = `
+                    <div class="product-image" onclick="openImageModal(${index})">
+                        <img src="${product.imageFile}" alt="${product.name}" 
+                             onerror="handleImageError(this)">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${product.name}</h3>
+                        <div class="product-price">DA${product.price.toFixed(2)}</div>
+                        
+                        <div class="quantity-selector">
+                            <label>${translations[currentLanguage]['quantity']}</label>
+                            <button type="button" class="quantity-btn minus" data-product="${product.id}">-</button>
+                            <input type="number" class="quantity-input" id="quantity-${product.id}" 
+                                   value="0" min="0" max="10" data-product="${product.id}">
+                            <button type="button" class="quantity-btn plus" data-product="${product.id}">+</button>
+                        </div>
+                        
+                        <div>
+                            <span class="color-label">${product.color}</span>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Gérer les quantités
+        function setupQuantityControls() {
+            // Boutons moins
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product');
+                    const input = document.getElementById(`quantity-${productId}`);
+                    if (parseInt(input.value) > 0) {
+                        input.value = parseInt(input.value) - 1;
+                    }
+                });
+            });
+
+            // Boutons plus
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productId = this.getAttribute('data-product');
+                    const input = document.getElementById(`quantity-${productId}`);
+                    if (parseInt(input.value) < 10) {
+                        input.value = parseInt(input.value) + 1;
+                    }
+                });
+            });
+
+            // Validation des inputs
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    let value = parseInt(this.value);
+                    if (isNaN(value) || value < 0) value = 0;
+                    if (value > 10) value = 10;
+                    this.value = value;
+                });
+            });
+        }
+
+        // Peupler le menu déroulant des wilayas
+        function populateWilayaDropdown() {
+            const select = document.getElementById('wilaya');
+            
+            wilayas.forEach(wilaya => {
+                const option = document.createElement('option');
+                option.value = wilaya;
+                option.textContent = wilaya;
+                select.appendChild(option);
+            });
+        }
+
+        // Gérer la sélection des options de livraison
+        function setupDeliveryOptions() {
+            const deliveryOptions = document.querySelectorAll('.delivery-option');
+            
+            deliveryOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Retirer la classe selected de toutes les options
+                    deliveryOptions.forEach(opt => opt.classList.remove('selected'));
+                    // Ajouter la classe selected à l'option cliquée
+                    this.classList.add('selected');
+                    // Cochez le radio button correspondant
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
+            });
+        }
+
+        // Gérer la soumission du formulaire
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+            const wilaya = document.getElementById('wilaya').value;
+            const delivery = document.querySelector('input[name="delivery"]:checked')?.value;
+            
+            // Masquer les messages précédents
+            document.getElementById('successMessage').style.display = 'none';
+            
+            // Valider la livraison
+            if (!delivery) {
+                alert(translations[currentLanguage]['selectDelivery']);
+                return;
+            }
+            
+            // Collecter les produits avec quantités
+            const productInfo = [];
+            let totalItems = 0;
+            
+            products.forEach(product => {
+                const quantity = parseInt(document.getElementById(`quantity-${product.id}`).value) || 0;
+                if (quantity > 0) {
+                    productInfo.push({
+                        id: product.id,
+                        title: product.name,
+                        price: product.price,
+                        color: product.color,
+                        quantity: quantity
+                    });
+                    totalItems += quantity;
+                }
+            });
+            
+            // Valider qu'au moins un produit est sélectionné
+            if (productInfo.length === 0) {
+                alert(translations[currentLanguage]['selectProduct']);
+                return;
+            }
+            
+            // Calculer le total
+            const total = productInfo.reduce((sum, product) => {
+                return sum + (product.price * product.quantity);
+            }, 0);
+            
+            // Créer l'objet commande
+            const orderData = {
+                customer: {
+                    firstName,
+                    lastName,
+                    phone,
+                    wilaya,
+                    delivery
+                },
+                products: productInfo,
+                total: total,
+                totalItems: totalItems
+            };
+            
+            // Sauvegarder la commande
+            if (await saveOrder(orderData)) {
+                // Afficher le message de succès stylé
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Réinitialiser le formulaire
+                document.getElementById('customerForm').reset();
+                
+                // Réinitialiser les quantités
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.value = '0';
+                });
+                
+                // Réinitialiser la sélection de livraison
+                document.querySelectorAll('.delivery-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Masquer le message de succès après 8 secondes
+                setTimeout(() => {
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 8000);
+            } else {
+                alert(translations[currentLanguage]['saveError']);
+            }
+        }
+
+        // Voir toutes les commandes
+        async function viewOrders() {
+            const ordersList = document.getElementById('ordersList');
+            ordersList.innerHTML = '<p>Chargement...</p>';
+            
+            const orders = await getOrders();
+            
+            if (orders.length === 0) {
+                ordersList.innerHTML = '<p>' + translations[currentLanguage]['noOrders'] + '</p>';
+                return;
+            }
+            
+            let html = '';
+            orders.forEach(order => {
+                const deliveryText = order.customer.delivery === 'domicile' ? 
+                    translations[currentLanguage]['homeDelivery'] : 
+                    translations[currentLanguage]['relayPoint'];
+                
+                html += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            Commande #${order.id} - ${order.customer.firstName} ${order.customer.lastName}
+                        </div>
+                        <div class="order-details">
+                            <strong>Téléphone:</strong> ${order.customer.phone} | 
+                            <strong>Wilaya:</strong> ${order.customer.wilaya}<br>
+                            <strong>Livraison:</strong> ${deliveryText}<br>
+                            <strong>Total:</strong> DA${order.total.toFixed(2)}<br>
+                            <strong>Articles:</strong> ${order.totalItems} pièce(s)<br>
+                            <strong>Date:</strong> ${new Date(order.timestamp).toLocaleString('fr-FR')}
+                            ${order.clientInfo && order.clientInfo.ip ? `<br><strong>IP:</strong> ${order.clientInfo.ip}` : ''}
+                        </div>
+                        <div class="order-products">
+                            ${order.products.map(product => 
+                                `<div class="order-product">${product.quantity}x ${product.title} - DA${product.price} (${product.color})</div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            ordersList.innerHTML = html;
+        }
+
+        // Exporter les commandes en fichier texte
+        async function exportOrders() {
+            const orders = await getOrders();
+            let textData = 'PREMIUM SHOPPING - TOUTES LES COMMANDES\n';
+            textData += '==========================================\n\n';
+            
+            orders.forEach((order, index) => {
+                const deliveryText = order.customer.delivery === 'domicile' ? 
+                    translations[currentLanguage]['homeDelivery'] : 
+                    translations[currentLanguage]['relayPoint'];
+                
+                textData += `COMMANDE ${index + 1}:\n`;
+                textData += `Client: ${order.customer.firstName} ${order.customer.lastName}\n`;
+                textData += `Téléphone: ${order.customer.phone}\n`;
+                textData += `Wilaya: ${order.customer.wilaya}\n`;
+                textData += `Livraison: ${deliveryText}\n`;
+                textData += `Total: DA${order.total.toFixed(2)}\n`;
+                textData += `Articles: ${order.totalItems} pièce(s)\n`;
+                textData += `Date: ${new Date(order.timestamp).toLocaleString('fr-FR')}\n`;
+                textData += `Produits:\n`;
+                
+                order.products.forEach(product => {
+                    textData += `  - ${product.quantity}x ${product.title} - DA${product.price} (${product.color})\n`;
+                });
+                
+                textData += '\n' + '='.repeat(50) + '\n\n';
+            });
+            
+            // Créer et télécharger le fichier
+            const blob = new Blob([textData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `commandes_${new Date().toISOString().split('T')[0]}.txt`;
+            link.click();
+            URL.revokeObjectURL(url);
+            
+            alert(translations[currentLanguage]['ordersExported']);
+        }
+
+        // Effacer toutes les commandes
+        async function clearOrders() {
+            if (confirm(translations[currentLanguage]['clearConfirm'])) {
+                localStorage.removeItem('premiumShoppingOrders');
+                document.getElementById('ordersList').innerHTML = '<p>' + translations[currentLanguage]['allOrdersCleared'] + '</p>';
+                alert(translations[currentLanguage]['ordersCleared']);
+            }
+        }
+
+        // NEW: Function to create and download the global order log
+        async function downloadOrderLog() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.style.display = 'block';
+            
+            try {
+                const orders = await getOrders();
+                loadingSpinner.style.display = 'none';
+                
+                if (orders.length === 0) {
+                    alert('Aucune commande trouvée à télécharger.');
+                    return;
+                }
+                
+                // Create comprehensive log file content
+                let logContent = 'PREMIUM SHOPPING - JOURNAL DES COMMANDES GLOBAL\n';
+                logContent += '=================================================\n';
+                logContent += `Généré le: ${new Date().toLocaleString('fr-FR')}\n`;
+                logContent += `Total des commandes: ${orders.length}\n`;
+                logContent += '=================================================\n\n';
+                
+                orders.forEach((order, index) => {
+                    const orderDate = new Date(order.timestamp);
+                    const deliveryText = order.customer.delivery === 'domicile' ? 
+                        'Livraison à Domicile' : 'Point Relais/Bureau';
+                    
+                    logContent += `COMMANDE #${index + 1}\n`;
+                    logContent += `${'='.repeat(50)}\n`;
+                    logContent += `ID Commande: ${order.id}\n`;
+                    logContent += `Date: ${orderDate.toLocaleString('fr-FR')}\n`;
+                    logContent += `Client: ${order.customer.firstName} ${order.customer.lastName}\n`;
+                    logContent += `Téléphone: ${order.customer.phone}\n`;
+                    logContent += `Wilaya: ${order.customer.wilaya}\n`;
+                    logContent += `Livraison: ${deliveryText}\n`;
+                    logContent += `Total Articles: ${order.totalItems}\n`;
+                    logContent += `Montant Total: DA${order.total.toFixed(2)}\n`;
+                    
+                    // Client information
+                    if (order.clientInfo) {
+                        logContent += `Langue Client: ${order.clientInfo.language}\n`;
+                        logContent += `Fuseau Horaire: ${order.clientInfo.timezone}\n`;
+                        logContent += `IP: ${order.clientInfo.ip || 'Unknown'}\n`;
+                    }
+                    
+                    logContent += `\nPRODUITS:\n`;
+                    logContent += `${'-'.repeat(30)}\n`;
+                    
+                    order.products.forEach(product => {
+                        logContent += `- ${product.quantity}x ${product.title}\n`;
+                        logContent += `  Prix: DA${product.price} | Couleur: ${product.color}\n`;
+                        logContent += `  Sous-total: DA${(product.price * product.quantity).toFixed(2)}\n\n`;
+                    });
+                    
+                    logContent += `\n${'='.repeat(50)}\n\n`;
+                });
+                
+                // Calculate statistics
+                const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+                const totalItems = orders.reduce((sum, order) => sum + order.totalItems, 0);
+                
+                logContent += `STATISTIQUES RÉCAPITULATIVES:\n`;
+                logContent += `${'='.repeat(30)}\n`;
+                logContent += `Total des commandes: ${orders.length}\n`;
+                logContent += `Total des articles vendus: ${totalItems}\n`;
+                logContent += `Chiffre d'affaires total: DA${totalRevenue.toFixed(2)}\n`;
+                logContent += `Valeur moyenne des commandes: DA${(totalRevenue / orders.length).toFixed(2)}\n`;
+                
+                // Create and download the file
+                const blob = new Blob([logContent], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `journal_commandes_premium_shopping_${new Date().toISOString().split('T')[0]}.txt`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+                
+                alert('✅ Journal des commandes téléchargé avec succès !');
+            } catch (error) {
+                loadingSpinner.style.display = 'none';
+                alert('Erreur lors du téléchargement: ' + error.message);
+            }
+        }
+
+        // NEW: Function to view order log in the browser
+        async function viewOrderLog() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const logContent = document.getElementById('logContent');
+            
+            loadingSpinner.style.display = 'block';
+            logContent.style.display = 'none';
+            
+            try {
+                const orders = await getOrders();
+                loadingSpinner.style.display = 'none';
+                
+                if (orders.length === 0) {
+                    logContent.textContent = 'Aucune commande trouvée.';
+                    logContent.style.display = 'block';
+                    return;
+                }
+                
+                let displayContent = 'PREMIUM SHOPPING - JOURNAL DES COMMANDES\n';
+                displayContent += '='.repeat(40) + '\n\n';
+                
+                orders.forEach((order, index) => {
+                    const orderDate = new Date(order.timestamp);
+                    displayContent += `COMMANDE ${index + 1}: ${order.customer.firstName} ${order.customer.lastName}\n`;
+                    displayContent += `Téléphone: ${order.customer.phone} | Wilaya: ${order.customer.wilaya}\n`;
+                    displayContent += `Total: DA${order.total.toFixed(2)} | Articles: ${order.totalItems}\n`;
+                    displayContent += `Date: ${orderDate.toLocaleDateString('fr-FR')} ${orderDate.toLocaleTimeString('fr-FR')}\n`;
+                    displayContent += '-'.repeat(40) + '\n';
+                });
+                
+                // Add summary
+                const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0);
+                displayContent += `\nRÉSUMÉ: ${orders.length} commandes | Chiffre d'affaires: DA${totalRevenue.toFixed(2)}\n`;
+                
+                logContent.textContent = displayContent;
+                logContent.style.display = 'block';
+            } catch (error) {
+                loadingSpinner.style.display = 'none';
+                logContent.textContent = 'Erreur lors du chargement: ' + error.message;
+                logContent.style.display = 'block';
+            }
+        }
+
+        // NEW: Function to clear all orders with confirmation
+        async function clearAllOrders() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer TOUTES les commandes ? Cette action est irréversible.')) {
+                try {
+                    // Clear server orders
+                    await fetch(`${JSONBIN_CONFIG.BASE_URL}/${JSONBIN_CONFIG.BIN_ID}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Master-Key': JSONBIN_CONFIG.API_KEY
+                        },
+                        body: JSON.stringify([])
+                    });
+                    
+                    // Clear local orders
+                    localStorage.removeItem('premiumShoppingOrders');
+                    
+                    document.getElementById('logContent').style.display = 'none';
+                    alert('🗑️ Toutes les commandes ont été supprimées avec succès !');
+                } catch (error) {
+                    alert('Erreur lors de la suppression: ' + error.message);
+                }
+            }
+        }
+
+        // Animation d'intersection pour les cartes
+        function initIntersectionObserver() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+
+            // Observer chaque carte de fonctionnalité
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.style.animationPlayState = 'paused';
+                observer.observe(card);
+            });
+        }
+
+        // Initialiser la page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Test connection first
+            testConnection();
+            
+            generateProductCards();
+            setupQuantityControls();
+            populateWilayaDropdown();
+            setupDeliveryOptions();
+            initIntersectionObserver();
+            initProductVideoControls(); // Initialize product video controls
+            
+            // Ajouter le gestionnaire de soumission du formulaire
+            document.getElementById('customerForm').addEventListener('submit', handleFormSubmit);
+            
+            // Gestion de la visionneuse d'images
+            document.querySelector('.close-modal').addEventListener('click', closeImageModal);
+            document.querySelector('.prev-btn').addEventListener('click', () => navigateImages(-1));
+            document.querySelector('.next-btn').addEventListener('click', () => navigateImages(1));
+            
+            // Fermer la visionneuse en cliquant en dehors de l'image
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeImageModal();
+                }
+            });
+            
+            // Navigation au clavier
+            document.addEventListener('keydown', function(e) {
+                if (document.getElementById('imageModal').style.display === 'block') {
+                    if (e.key === 'Escape') closeImageModal();
+                    if (e.key === 'ArrowLeft') navigateImages(-1);
+                    if (e.key === 'ArrowRight') navigateImages(1);
+                }
+            });
+            
+            // Gestion des boutons de langue
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    changeLanguage(lang);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
